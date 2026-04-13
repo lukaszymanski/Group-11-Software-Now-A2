@@ -2,46 +2,60 @@
 shift1 = int(input("Enter shift1: "))
 shift2 = int(input("Enter shift2: "))
 
-# 2 encrpyt character
-def ecrypt_text(text, shift1, shift2):
-    result = ""
+def encrypt_char(char, shift1, shift2):
+    """
+    Encrypts one character
+    """
+    #lowercase rules
+    if char.islower():
+        offset = 97
+        char_position = ord(char) - offset
+
+        if char_position < 13: # first alphabet half (a-m)
+            new_position = (char_position + shift1 * shift2) % 26
+        else: #second alphabet half
+            new_position = (char_position - (shift1 + shift2)) % 26
+
+        return chr(new_position + offset)
+    
+    # uppercase rules
+    elif char.isupper():
+        offset = 65
+        char_position = ord(char) - offset
+
+        if char_position < 13: # first alphabet half (A-M)
+            new_position = (char_position - shift1) % 26
+        else: # sencond alphabet half (N-Z)
+            new_position = (char_position + shift2 ** 2) % 26
+
+        return chr(new_position + offset)
+    
+    else: # other characters
+        return char
+    
+
+def encrypt_text(text, shift1, shift2):
+    '''
+    Encrypt full text
+    '''
+    encrypted_text = ""
 
     for char in text:
+        encrypted_text += encrypt_char(char, shift1, shift2)
 
-        #lowercase letters
-        if char.islower():
+    return encrypted_text
 
-            #a-m forward rule
-            if char >= 'a' and char <= 'm':
-                shift = shift1 * shift2
-                new_pos = (ord(char) - ord('a') + shift) % 26
-                return chr(new_pos + ord('a'))
-                
-            # n-z backward rule
-            else:
-                shift = shift1 + shift2
-                new_pos = (ord(char) - ord('a') - shift) % 26
-                return chr(new_pos + ord('a'))
-       
-        #uppercase letters
-        elif char.isupper():
+def decrypt_char(char, shift1, shift2):
+    """
+    Decrypts one character
+    """
 
-            # A-M backward rule
-            if 'A' <= char <= 'M':
-                shift = shift1
-                new_pos = (ord(char) - ord('A') - shift) % 26
-                return chr(new_pos + ord('A'))
-            # N-Z forward rule
-            else:
-                shift = shift2*shift2
-                new_pos = (ord(char) - ord('A') + shift) % 26
-                return chr(new_pos + ord('A'))
-        else: 
-            return char
-        
+    # other characters
+    if not char.isalpha():
+        return char
 
-# 3 full text encryption
-# 4 decrypy character
-# 5 decrypt text
-# verify results
-# file read program
+
+
+
+
+    
