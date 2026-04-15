@@ -49,10 +49,35 @@ def decrypt_char(char, shift1, shift2):
     """
     Decrypts one character
     """
-
     # other characters
     if not char.isalpha():
         return char
+    
+    # try lowercase decrypt
+    if char.islower():
+        for test_char in "abcdefghijklmnopqrstuvwxyz":
+            if encrypt_char(test_char, shift1, shift2) == char:
+                return test_char
+            
+    # try uppercase decrypt
+    if char.isupper():
+        for test_char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            if encrypt_char(test_char, shift1, shift2) == char:
+                return test_char
+            
+    return char
+
+"""
+full text decryption
+"""
+
+ 
+
+
+
+
+
+
 
 
 
