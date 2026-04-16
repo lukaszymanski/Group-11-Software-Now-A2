@@ -67,9 +67,18 @@ def decrypt_char(char, shift1, shift2):
             
     return char
 
-"""
-full text decryption
-"""
+def decrypt_text(text, shift1, shift2):
+    '''
+    full text decryption
+    '''
+    decrypted_text = ""
+
+    for char in text: 
+        decrypted_text += decrypt_char(char, shift1, shift2)
+
+    return decrypted_text
+
+
 
  
 
