@@ -79,6 +79,84 @@ def decrypt_text(text, shift1, shift2):
     return decrypted_text
 
 
+def read_text_from_file():
+    """
+    Reads text from file
+    """
+    try:
+        file = open("raw_text.txt", "r")
+        text = file.read()
+        file.close()
+        return text
+    except:
+        print("file not found, please add 'raw_text.txt' to the master folder")
+        return ""
+    
+
+def write_text_to_file(file_name, text):
+    """
+    writes text to file
+    """
+    try:
+        file = open(file_name, "w")
+        file.write(text)
+        file.close()
+    except:
+        print("error writing to file")
+
+
+# Verify files match
+def verify_files():
+    original_text = read_text_from_file()
+
+    try:
+        file = open("decrypted_text.txt", "r")
+        decrypted_text = file.read()
+        file.close()
+    except:
+        print("Decrypted file not found")
+        return
+    if original_text == decrypted_text:
+        print("Decryption Successful")
+    else:
+        print("Decryption Failed")
+
+
+# main program
+
+def main():
+
+    text = read_text_from_file()
+
+    if text != "":
+
+        #encrypt
+        encrypted_text = encrypt_text(text, shift1, shift2)
+        write_text_to_file("encrypted_text.txt", encrypted_text)
+
+        # read encrypted file
+        file = open("encrypted_text.txt", "r")
+        encrypted_text = file.read()
+        file.close()
+
+        #decrypt
+        decrypted_text = decrypt_text(encrypted_text, shift1, shift2)
+        write_text_to_file("decrypted_text.txt", decrypted_text)
+
+        #verify
+        verify_files()
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+    
+
+              
 
  
 
